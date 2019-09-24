@@ -18,18 +18,24 @@ import no.bakkenbaeck.chessboardeditor.view.piece.ChessPieceView
 import no.bakkenbaeck.chessboardeditor.view.row.ChessInnerRowView
 import no.bakkenbaeck.chessboardeditor.view.row.ChessSideRowView
 import no.bakkenbaeck.chessboardeditor.view.row.ChessWhiteSpaceRowView
+import kotlin.math.min
 
 class ChessBoardView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : TableLayout(context, attrs) {
 
+    companion object {
+        const val BOARD_WIDTH_RATIO = 8
+        const val BOARD_HEIGHT_RATIO = 11
+    }
+
     private lateinit var position: Position
 
     init {
         setFen("")
     }
-    
+
     fun setFen(fen: String) {
         try {
             position = FenUtil.readFEN(fen)
@@ -163,5 +169,28 @@ class ChessBoardView @JvmOverloads constructor(
             pieceView.setPiece(piece)
             cell.setPiece(pieceView)
         }
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val (desiredWidth, desiredHeight) = getDesiredDimensions(widthMeasureSpec, heightMeasureSpec)
+        setMeasuredDimension(desiredWidth, desiredHeight)
+        setWidthHeight(desiredWidth, desiredHeight)
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+    }
+
+    private fun getDesiredDimensions(widthMeasureSpec: Int, heightMeasureSpec: Int): Pair<Int, Int> {
+        val measuredWidth = MeasureSpec.getSize(widthMeasureSpec)
+        val measuredHeight = MeasureSpec.getSize(heightMeasureSpec)
+        val normalizedWidth = measuredWidth * BOARD_HEIGHT_RATIO
+        val normalizedHeight = measuredHeight * BOARD_WIDTH_RATIO
+        val minNormalized = min(normalizedWidth, normalizedHeight)
+        val desiredWidth = minNormalized / BOARD_HEIGHT_RATIO
+        val desiredHeight = minNormalized / BOARD_WIDTH_RATIO
+        return desiredWidth to desiredHeight
+    }
+
+    private fun setWidthHeight(width: Int, height: Int) {
+        layoutParams.width = width
+        layoutParams.height = height
     }
 }
