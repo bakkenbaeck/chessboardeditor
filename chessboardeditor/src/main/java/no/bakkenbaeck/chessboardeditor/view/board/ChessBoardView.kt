@@ -26,6 +26,10 @@ class ChessBoardView @JvmOverloads constructor(
 
     private lateinit var position: Position
 
+    init {
+        setFen("")
+    }
+    
     fun setFen(fen: String) {
         try {
             position = FenUtil.readFEN(fen)
