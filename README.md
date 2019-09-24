@@ -18,7 +18,7 @@ Step 1 - Add the JitPack repository to your root build.gradle, at the end of rep
 Step 2 - Add the dependency to your sub build.gradle:
 
 	dependencies {
-	        implementation 'com.github.bakkenbaeck:chessboardeditor:v1.0.1'
+	        implementation 'com.github.bakkenbaeck:chessboardeditor:v1.0.2'
 	}
   
 ### How to use:

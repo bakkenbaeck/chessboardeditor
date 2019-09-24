@@ -48,8 +48,8 @@ class ChessBoardView @JvmOverloads constructor(
     fun getFen() = FenUtil.toFen(position)
 
     private fun initBoard() {
-        removeAllViews()
         post {
+            removeAllViews()
             createBoard()
             loadPieces()
         }
