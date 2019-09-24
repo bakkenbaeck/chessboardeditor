@@ -179,8 +179,6 @@ class ChessBoardView @JvmOverloads constructor(
     }
 
     private fun getDesiredDimensions(widthMeasureSpec: Int, heightMeasureSpec: Int): Pair<Int, Int> {
-        Log.v("ChessBoardView", "measured width ${MeasureSpec.toString(widthMeasureSpec)}")
-        Log.v("ChessBoardView", "measured height ${MeasureSpec.toString(heightMeasureSpec)}")
         val measuredWidth = MeasureSpec.getSize(widthMeasureSpec)
         val measuredHeight = MeasureSpec.getSize(heightMeasureSpec)
         val normalizedWidth = measuredWidth * BOARD_HEIGHT_RATIO
@@ -188,8 +186,6 @@ class ChessBoardView @JvmOverloads constructor(
         val minNormalized = min(normalizedWidth, normalizedHeight)
         val desiredWidth = minNormalized / BOARD_HEIGHT_RATIO
         val desiredHeight = minNormalized / BOARD_WIDTH_RATIO
-        Log.v("ChessBoardView", "desired width $desiredWidth")
-        Log.v("ChessBoardView", "desired height $desiredHeight")
         return desiredWidth to desiredHeight
     }
 
