@@ -15,5 +15,5 @@ class ChessInnerCellView @JvmOverloads constructor(
         else setBackgroundColor(ContextCompat.getColor(context, R.color.boardCellDark))
     }
 
-    private fun isLightCell(row: Int, col: Int) = (row + col) % 2 == 0
+    private fun isLightCell(row: Int, col: Int) = (row + col) % 2 != 0
 }
